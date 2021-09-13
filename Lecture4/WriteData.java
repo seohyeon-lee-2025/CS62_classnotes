@@ -18,8 +18,8 @@ public class WriteData {
 			// Write formatted output to the file
 			output.print("Alexandra Papoutsaki ");
 			output.println(222);
-			output.print("Mark Kampe ");
-			output.println(212);
+			output.print("Tom Yeh ");
+			output.println(128);
 
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
