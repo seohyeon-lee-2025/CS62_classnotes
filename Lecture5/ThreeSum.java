@@ -2,18 +2,37 @@
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /******************************************************************************
+ *  Compilation:  javac ThreeSum.java
+ *  Execution:    java ThreeSum input.txt sizeOfInput
+ *  Dependencies: Stopwatch.java
+ *  Data files:   https://algs4.cs.princeton.edu/14analysis/1Kints.txt
+ *                https://algs4.cs.princeton.edu/14analysis/2Kints.txt
+ *                https://algs4.cs.princeton.edu/14analysis/4Kints.txt
+ *                https://algs4.cs.princeton.edu/14analysis/8Kints.txt
+ *                https://algs4.cs.princeton.edu/14analysis/16Kints.txt
+ *                https://algs4.cs.princeton.edu/14analysis/32Kints.txt
+ *                https://algs4.cs.princeton.edu/14analysis/1Mints.txt
+ *
  *  A program with cubic running time. Reads n integers
  *  and counts the number of triples that sum to exactly 0
  *  (ignoring integer overflow).
+ *
+ *  % java ThreeSum 1Kints.txt  1000
+ *  70
+ *
+ *  % java ThreeSum 2Kints.txt  2000
+ *  528
+ *
+ *  % java ThreeSum 4Kints.txt  4000
+ *  4039
+ *
  ******************************************************************************/
-
 /**
  *  The {@code ThreeSum} class provides static methods for counting
- *  and printing the number of triples in an arraylist of integers that sum to 0
+ *  and printing the number of triples in an array of integers that sum to 0
  *  (ignoring integer overflow).
  *  <p>
  *  This implementation uses a triply nested loop and takes proportional to n^3,
@@ -30,17 +49,17 @@ public class ThreeSum {
 
 	/**
 	 * Prints to standard output the (i, j, k) with {@code i < j < k}
-	 * such that {@code a.get(i) + a.get(j) + a.get(k) == 0}.
+	 * such that {@code + a[i] + a[j] + a[k] == 0}.
 	 *
-	 * @param a the arraylist of integers
+	 * @param a the array of integers
 	 */
-	public static void printAll(ArrayList<Integer> a) {
-		int n = a.size();
+	public static void printAll(int[] a) {
+		int n = a.length;
 		for (int i = 0; i < n; i++) {
 			for (int j = i+1; j < n; j++) {
 				for (int k = j+1; k < n; k++) {
-					if (a.get(i) + a.get(j) + a.get(k) == 0) {
-						System.out.println(a.get(i) + " " + a.get(j) + " " + a.get(k));
+					if (a[i] + a[j] + a[k] == 0) {
+						System.out.println(a[i] + " " + a[j]  + " " + a[k]);
 					}
 				}
 			}
@@ -49,19 +68,19 @@ public class ThreeSum {
 
 	/**
 	 * Returns the number of triples (i, j, k) with {@code i < j < k}
-	 * such that {@code a.get(i) + a.get(j) + a.get(k) == 0}.
+	 * such that {@code + a[i] + a[j] + a[k] == 0}.
 	 *
-	 * @param  a the arraylist of integers
+	 * @param  a the array of integers
 	 * @return the number of triples (i, j, k) with {@code i < j < k}
-	 *         such that {@code a.get(i) + a.get(j) + a.get(k) == 0}
+	 *         such that {@code a[i] + a[j] + a[k] == 0}
 	 */
-	public static int count(ArrayList<Integer> a) {
-		int n = a.size();
+	public static int count(int[] a) {
+		int n = a.length;
 		int count = 0;
 		for (int i = 0; i < n; i++) {
 			for (int j = i+1; j < n; j++) {
 				for (int k = j+1; k < n; k++) {
-					if (a.get(i) + a.get(j) + a.get(k) == 0) {
+					if (a[i] + a[j] + a[k] == 0) {
 						count++;
 					}
 				}
@@ -75,16 +94,18 @@ public class ThreeSum {
 	 * counts the number of triples sum to exactly zero; prints out the time to perform
 	 * the computation.
 	 *
-	 * @param args the command-line arguments
+	 * @param args the command-line arguments that represent the file name and file size (number of lines)
 	 */
 	public static void main(String[] args)  {
 		//make sure that your file is not in the src folder but one level up
 		String filename = args[0];
+		int fileSize = Integer.parseInt(args[1]);
 		try {
 			Scanner scanner = new Scanner(new File(filename));
-			ArrayList<Integer> intList = new ArrayList<Integer>();
+			int intList[] = new int[fileSize];
+			int i=0;
 			while(scanner.hasNextInt()){
-				intList.add(scanner.nextInt());
+				intList[i++]=scanner.nextInt();
 			}
 			Stopwatch timer = new Stopwatch();
 			int count = count(intList);
